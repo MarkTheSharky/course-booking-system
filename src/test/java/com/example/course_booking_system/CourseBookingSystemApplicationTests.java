@@ -30,4 +30,29 @@ class CourseBookingSystemApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	public void canGetAllCoursesByRating(){
+		List<Course> found = courseRepository.findByRating(5);
+		assertEquals(1, found.size());
+	}
+
+	@Test
+	public void canGetCustomersForCourse() {
+		List<Customer> foundCustomers = customerRepository.findByBookingsCourseName("Intro to Python");
+		assertEquals(1, foundCustomers.size());
+	}
+
+	@Test
+	public void canGetCoursesForCustomer(){
+		List<Course> foundCourses = courseRepository.findByBookingsCustomerName("Simon");
+		assertEquals(2, foundCourses.size());
+	}
+
+	@Test
+	public void canGetBookingsByDate() {
+		List<Booking> foundBooking = bookingRepository.findByDate("29-02-22");
+		assertEquals(2, foundBooking.size());
+		assertEquals("Mark", foundBooking.get(0).getCustomer().getName());
+	}
+
 }
